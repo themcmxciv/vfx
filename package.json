@@ -1,0 +1,11 @@
+{
+  "name": "vfx",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": { "vfx": "./bin/vfx" },
+  "scripts": {
+    "test": "node --test vfx/tests/*.test.mjs"
+  },
+  "engines": { "node": ">=18" }
+}

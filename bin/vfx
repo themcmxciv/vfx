@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+import { existsSync, realpathSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const installedEngine = join(dirname(realpathSync(fileURLToPath(import.meta.url))), "fx");
+if (!process.env.VFX_ENGINE_PATH && existsSync(installedEngine)) {
+	process.env.VFX_ENGINE_PATH = installedEngine;
+}
+
+import "../vfx/cli/index.js";
