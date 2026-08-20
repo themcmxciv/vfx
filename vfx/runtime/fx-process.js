@@ -20,10 +20,15 @@ export class FxProcess {
   }
 }
 
-export function locateFxEngine() {
-  if (process.env.VFX_ENGINE_PATH) return process.env.VFX_ENGINE_PATH;
-  const local = resolve(dirname(), "../../zig-out/bin/fx");
-  if (existsSync(local)) return local;
+export function locateFxEngine(options = {}) {
+  const environment = options.environment ?? process.env;
+  const exists = options.exists ?? existsSync;
+  const directory = options.directory ?? dirname();
+  if (environment.VFX_ENGINE_PATH) return environment.VFX_ENGINE_PATH;
+  const installed = resolve(directory, "../../bin/fx");
+  if (exists(installed)) return installed;
+  const local = resolve(directory, "../../zig-out/bin/fx");
+  if (exists(local)) return local;
   throw new Error("FX engine not found. Set VFX_ENGINE_PATH or install VFX.");
 }
 
